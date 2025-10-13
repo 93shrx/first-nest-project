@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -8,12 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model users {
-  id    Int     @default(autoincrement())
-  name  String? @db.Char
-  email String? @db.Char
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String? @db.VarChar(255)
+  email String? @db.VarChar(255)
   age   Int?
 
-  @@ignore
+  @@map("users")
 }
