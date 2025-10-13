@@ -15,20 +15,20 @@ export class UserController {
 
     @Get()
     async getAllUsers() {
-        return {users:[]};
+        return this.userService.getUsers();
     }
 
     @Get(':id')
     async getUserById(@Param('id', ParseIntPipe) id) {
-        return {user:{}, id};
+        return this.userService.getUserById(id);
     }
 
     @Patch(':id')
     async updateUserById(@Param('id', ParseIntPipe) id, @Body() {name, age, email}: UpdatePatchUserDto) {
-        return {user:{}, id, name, age, email};
+        return this.userService.updateUserById(id, {name, age, email});
     }
     @Delete(':id')
     async deleteUserById(@Param('id', ParseIntPipe) id) {
-        return {user:{}, id};
+        return this.userService.deleteUserById(id);
     }
 }
