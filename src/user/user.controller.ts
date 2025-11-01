@@ -1,13 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseInterceptors } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdatePatchUserDto } from "./dto/update-patch-user.dto";
 import { UserService } from "./user.service";
+import { LogInterceptor } from "./interceptors/log.interceptor";
 
 
 @Controller('users')
 export class UserController {
     constructor(private userService: UserService) {}
 
+    @UseInterceptors(LogInterceptor)
     @Post()
     async createUser(@Body() {name, age, email}: CreateUserDto) {
         return this.userService.createUser({name, age, email});
